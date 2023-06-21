@@ -1,0 +1,8 @@
+msgid ""
+msgstr ""
+
+msgid "Related events (Event)"
+msgstr "Évènements associés (Event)"
+
+msgid "Others events"
+msgstr "Autres évènements"

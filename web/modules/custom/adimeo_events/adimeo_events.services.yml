@@ -1,0 +1,9 @@
+services:
+  logger.channel.adimeo_events:
+    parent: logger.channel_base
+    arguments: [ 'adimeo_events' ]
+  adimeo_events.event_service:
+    class: Drupal\adimeo_events\Service\EventService
+    arguments:
+      - '@entity_type.manager'
+      - '@logger.channel.adimeo_events'

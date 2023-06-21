@@ -1,0 +1,28 @@
+uuid: 2c120073-2574-436c-88d1-7e273afcfce2
+langcode: fr
+status: true
+dependencies:
+  module:
+    - adimeo_events
+    - node
+  theme:
+    - test_drupal
+id: related_events_block
+theme: test_drupal
+region: content
+weight: 0
+provider: null
+plugin: related_events
+settings:
+  id: related_events
+  label: 'Évènements associés (Event)'
+  label_display: '0'
+  provider: adimeo_events
+visibility:
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+    bundles:
+      event: event

@@ -1,0 +1,34 @@
+<?php
+
+/**
+ * @file
+ * Contains hook implementations for adimeo_events module.
+ */
+
+declare(strict_types = 1);
+
+use Drupal\adimeo_events\HookHandler\CronEventHookHandler;
+
+/**
+ * Implements hook_theme().
+ */
+function adimeo_events_theme($existing, $type, $theme, $path) {
+  return [
+    'related_events_block' => [
+      'variables' => [
+        'title' => [],
+        'events' => [],
+      ],
+    ],
+  ];
+}
+
+/**
+ * Implements hook_cron().
+ */
+function adimeo_events_cron() {
+  /** @var \Drupal\adimeo_events\HookHandler\CronEventHookHandler $instance */
+  $instance = \Drupal::service('class_resolver')
+    ->getInstanceFromDefinition(CronEventHookHandler::class);
+  $instance->process();
+}

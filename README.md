@@ -1,5 +1,37 @@
 # Test Drupal
 
+## Informations sur les sources rendues
+
+### 1. Block custom
+Un module custom a été créé pour ajouter le block contenant les évènements à insérer dans les pages **Event**.
+La configuration du site est à ré-importer pour avoir le module activé et le bloc ajouté sur les contenus.
+
+Un fichier de traduction a été ajouté pour avoir les textes du bloc dans la langue FR.
+Pour l'import, lancer la commande suivante:
+```shell
+drush locale:import fr /project/web/translations/custom/test_drupal.fr.po
+```
+_Si besoin, un dump de la bsa de données actualisée est disponible dans les sources (test_drupal_dump.zip)._
+
+Le bloc ne contient pas de design spécifique, seule la partie back et l'initialisation du template ont été faits.
+
+Les évènements listés sont affichés dans le view mode _teaser_ (en se basant sur l'existant), il n'y a pas eu de modification sur la structure du type de contenu ou dans ses modes d'affichage.
+
+Le bloc a été ajouté dans le block layout (par simplicité). Il peut également être inséré depuis un template twig, un controller ou un preprocess.
+
+### 2. Tâche cron
+
+La tâche cron a été faite dans hook handler afin de limiter le code dans le fichier _.module_ et pour utiliser l'injection de dépendances.
+
+Le **HookHandler** contient donc le test sur la dernière execution du cron (pour ne pas le relancer à chaque tâche cron), la récupération des évènements passés, et l'ajout de ces évènements dans le QueueWorker.
+
+Le **QueueWorker** de son côté va se charger de la dépublication des évènements qui lui sont donnés.
+
+Pour ce cron, l'intervalle a été défini à 10 min. Cela permet de ne pas être executé tout le temps (pour les sites ayant des crons toutes les minutes), mais assez régulièrement pour qu'un évènement passé ne reste pas disponible trop longtemps en ligne (max 10 min).
+
+### Temps passé
+Environ 8h au total.
+
 ## Description de l'existant
 Le site est déjà installé (profile standard), la db est à la racine du projet.
 Un **type de contenu** `Événement` a été créé et des contenus générés avec Devel. Il y a également une **taxonomie** `Type d'événement` avec des termes.

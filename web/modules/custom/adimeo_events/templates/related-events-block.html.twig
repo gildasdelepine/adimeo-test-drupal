@@ -1,0 +1,10 @@
+<div{{ attributes }}>
+  {% if title %}
+    <h2>{{ title }}</h2>
+  {% endif %}
+  {% block content %}
+    <div class="related-events-wrapper">
+      {{ events }}
+    </div>
+  {% endblock %}
+</div>
